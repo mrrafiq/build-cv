@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('course_title');
             $table->string('course_company');
-            $table->date('course_start_date');
-            $table->date('course_end_date');
-            $table->date('course_serial');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('serial');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('user_create_cv');

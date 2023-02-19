@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+}); 
 Route::get('/createcv', [App\Http\Controllers\CreateCVController::class, 'index'])->name('createcv.index');
 Route::post('/createcv/store', [App\Http\Controllers\CreateCVController::class, 'store'])->name('createcv.store');

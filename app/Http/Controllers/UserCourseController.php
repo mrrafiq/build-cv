@@ -35,7 +35,29 @@ class UserCourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validation = $request->validate([
+                'course_title' => 'required',
+                'course_company' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'serial' => 'required',
+            ]);
+            if($validation){
+                $createcv = new UserCourse();
+                $createcv->course_title = $request->course_title;
+                $createcv->course_company = $request->course_company;
+                $createcv->start_date = $request->start_date;
+                $createcv->end_date = $request->end_date;
+                $createcv->serial = $request->serial;
+                $createcv->save();
+                return redirect()->route('createcv.result');
+            }else{
+                return redirect()->route('createcv.index')->with('error', 'Something went wrong');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('createcv.index')->with('error', 'Something went wrong');
+        }
     }
 
     /**

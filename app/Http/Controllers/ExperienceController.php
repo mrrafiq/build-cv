@@ -35,7 +35,29 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validation = $request->validate([
+                'company_name' => 'required',
+                'job_title' => 'required',
+                'job_description' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]);
+            if($validation){
+                $createcv = new CreateCV();
+                $createcv->company_name = $request->company_name;
+                $createcv->job_title = $request->job_title;
+                $createcv->job_description = $request->job_description;
+                $createcv->start_date = $request->start_date;
+                $createcv->end_date = $request->end_date;
+                $createcv->save();
+                return redirect()->route('createcv.course');
+            }else{
+                return redirect()->route('createcv.index')->with('error', 'Something went wrong');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('createcv.index')->with('error', 'Something went wrong');
+        }
     }
 
     /**
